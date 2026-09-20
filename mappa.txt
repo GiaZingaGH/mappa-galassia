@@ -1,0 +1,75 @@
+# ===================================================================
+# COME SI MODIFICA QUESTA MAPPA
+# ===================================================================
+#
+# Questo file contiene i CONTENUTI della mappa. Puoi cambiarlo con un
+# qualsiasi editor di testo (TextEdit, Blocco note...). Non serve saper
+# programmare: si scrive come un elenco puntato, usando gli spazi.
+#
+# LE REGOLE SONO TRE
+#
+# 1) Una riga = un nodo della mappa (un "pallino" con una scritta).
+#
+# 2) Gli SPAZI all'inizio della riga dicono da chi dipende il nodo.
+#    Nessuno spazio  = il titolo della mappa (scrivilo una volta sola,
+#                      come prima riga).
+#    2 spazi         = un ramo principale (avra' un suo colore).
+#    4 spazi         = un dettaglio del ramo principale sopra di lui.
+#    6 spazi         = un dettaglio del dettaglio. E cosi' via.
+#    Si aggiungono sempre 2 spazi per scendere di un livello.
+#
+# 3) Le righe che iniziano con il cancelletto # sono commenti:
+#    servono solo a te, non compaiono nella mappa. Anche le righe
+#    vuote vengono ignorate, usale pure per respirare.
+#
+# ESEMPIO
+#
+#    Gli animali
+#      Mammiferi
+#        Cane
+#        Gatto
+#      Uccelli
+#        Aquila
+#
+# CONSIGLI
+#
+# - Usa la barra spaziatrice, non il tasto di tabulazione.
+# - Tieni le scritte brevi: due o tre parole si leggono meglio.
+# - Se sbagli gli spazi il sito non si blocca: mette il nodo dove puo'
+#   e ti avvisa in alto scrivendo il numero della riga da correggere.
+# - Il sito e' pubblico: non scrivere nomi veri di studenti.
+#
+# Dopo aver salvato il file, ricarica la pagina nel browser.
+#
+# ===================================================================
+
+Il Sistema Solare
+
+  Il Sole
+    Energia e luce
+    Macchie solari
+
+  Pianeti rocciosi
+    Mercurio
+    Venere
+    Terra
+      La Luna
+    Marte
+
+  Pianeti gassosi
+    Giove
+      La Grande Macchia Rossa
+    Saturno
+      Gli anelli
+    Urano
+    Nettuno
+
+  Corpi minori
+    Asteroidi
+      Fascia principale
+    Comete
+    Meteore
+
+  Esplorazione spaziale
+    Sonde e telescopi
+    Missioni con astronauti

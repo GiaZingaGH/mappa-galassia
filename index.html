@@ -9,8 +9,18 @@
 <body>
 
   <header class="barra">
-    <h1 id="titolo">Mappa concettuale</h1>
-    <p class="aiuto">I contenuti si cambiano nel file <code>mappa.txt</code>. Trascina un nodo per spostarlo.</p>
+    <div class="riga-alta">
+      <h1 id="titolo">Mappa concettuale</h1>
+      <div class="ricerca">
+        <input id="cerca" type="search" placeholder="Cerca nella mappa..."
+               autocomplete="off" aria-label="Cerca nella mappa">
+        <span id="esito" class="esito"></span>
+      </div>
+    </div>
+    <p class="aiuto">
+      Trascina lo sfondo per spostarti, usa la rotella (o due dita) per ingrandire.
+      Clic su un nodo per metterlo al centro. I contenuti si cambiano nel file <code>mappa.txt</code>.
+    </p>
   </header>
 
   <!-- Qui compaiono gli avvisi sulle righe indentate male -->

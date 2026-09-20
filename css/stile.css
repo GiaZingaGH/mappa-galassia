@@ -1,0 +1,74 @@
+/* Stile della pagina. I colori dei rami sono decisi in js/mappa.js */
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: #0b1020;
+  color: #e8ecf6;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+.barra {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 14px 20px 12px;
+  background: linear-gradient(to bottom, rgba(11, 16, 32, 0.95), rgba(11, 16, 32, 0));
+  pointer-events: none;
+  z-index: 2;
+}
+
+.barra h1 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+.aiuto {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: #93a0bd;
+}
+
+.aiuto code {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+/* Avvisi: righe di mappa.txt indentate male, o file non leggibile */
+.avvisi {
+  position: fixed;
+  top: 68px;
+  left: 20px;
+  right: 20px;
+  max-height: 40vh;
+  overflow-y: auto;
+  z-index: 3;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #7a5b1e;
+  background: #2a2310;
+  color: #f2d9a0;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.avvisi p { margin: 0 0 4px; }
+.avvisi p:last-child { margin-bottom: 0; }
+.avvisi strong { color: #ffd479; }
+
+#tela {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+}
+
+#tela.trascino { cursor: grabbing; }

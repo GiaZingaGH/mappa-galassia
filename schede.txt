@@ -1,0 +1,114 @@
+# ===================================================================
+# LE SCHEDE DI APPROFONDIMENTO
+# ===================================================================
+#
+# Qui dentro stanno le descrizioni lunghe che compaiono nel riquadro
+# laterale quando si fa DOPPIO CLIC su un nodo della mappa
+# (sul telefono: due tocchi veloci).
+#
+# LE REGOLE SONO TRE
+#
+# 1) Una riga = una scheda, scritta cosi':
+#
+#       nome del nodo | descrizione
+#
+#    Prima la barra verticale | va scritto il nome del nodo ESATTAMENTE
+#    come compare in mappa.txt; dopo la barra, il testo che vuoi mostrare.
+#    Maiuscole, minuscole e accenti non fanno differenza.
+#
+# 2) La descrizione sta tutta su UNA riga sola, anche se e' lunga:
+#    non andare a capo, il riquadro va a capo da solo.
+#
+# 3) Le righe che iniziano con il cancelletto # sono commenti e le righe
+#    vuote vengono ignorate: servono solo a te per tenere l'ordine.
+#
+# ESEMPIO
+#
+#    Cane | Il cane e' un mammifero domestico. Vive con l'uomo da
+#    migliaia di anni ed e' parente del lupo.
+#    (attenzione: nell'esempio qui sopra e' andato a capo solo per stare
+#    dentro al commento; tu scrivi tutto di seguito su una riga sola)
+#
+# COSA SUCCEDE SE MANCA QUALCOSA
+#
+# - Un nodo senza scheda non si rompe: il riquadro si apre lo stesso e
+#   ti ricorda come aggiungerla.
+# - Se scrivi un nome che nella mappa non esiste (magari un refuso), la
+#   pagina te lo segnala in alto con il numero della riga.
+# - Non serve una scheda per ogni nodo: mettile dove servono davvero.
+#
+# Dopo aver salvato il file, ricarica la pagina nel browser.
+#
+# Il sito e' pubblico: niente nomi veri di studenti nelle descrizioni.
+#
+# ===================================================================
+
+
+# --- Il titolo della mappa ---
+
+Il Sistema Solare | E' la famiglia di corpi celesti tenuti insieme dalla gravita' del Sole: otto pianeti con le loro lune, piu' asteroidi, comete e polveri. Si e' formato circa 4 miliardi e mezzo di anni fa da una grande nube di gas e polvere che, ruotando, si e' schiacciata e ha acceso il Sole al centro.
+
+
+
+# --- Il Sole e i suoi argomenti ---
+
+Il Sole | E' la stella al centro del Sistema Solare: una sfera di gas caldissimo che contiene da sola piu' del 99 per cento di tutta la materia del sistema. La sua gravita' tiene i pianeti in orbita e la sua luce impiega circa 8 minuti ad arrivare fino a noi.
+
+Energia e luce | Nel cuore del Sole i nuclei di idrogeno si uniscono e formano elio, liberando enormi quantita' di energia: e' la fusione nucleare. Quell'energia arriva sulla Terra come luce e calore e fa funzionare quasi tutto cio' che vive, a partire dalle piante.
+
+Macchie solari | Sono zone della superficie del Sole piu' scure perche' piu' fredde delle aree attorno, legate ai suoi potenti campi magnetici. Compaiono e spariscono seguendo un ciclo di circa 11 anni e si osservano solo con strumenti adatti: guardare il Sole direttamente danneggia gli occhi.
+
+
+# --- I pianeti rocciosi ---
+
+Pianeti rocciosi | Sono i quattro pianeti piu' vicini al Sole: Mercurio, Venere, Terra e Marte. Hanno una superficie solida su cui si potrebbe camminare, sono piccoli e densi e hanno poche lune o nessuna.
+
+Mercurio | E' il pianeta piu' vicino al Sole e il piu' piccolo di tutti. Non avendo una vera atmosfera passa da oltre 400 gradi di giorno a meno 170 di notte, e la sua superficie e' coperta di crateri come quella della Luna.
+
+Venere | E' il pianeta piu' simile alla Terra per dimensioni, ma la sua spessa atmosfera di anidride carbonica trattiene il calore e lo rende il piu' caldo di tutti, oltre 460 gradi. Dalla Terra si vede benissimo a occhio nudo: e' la "stella" luminosa del mattino e della sera.
+
+Terra | E' l'unico pianeta su cui sappiamo che esiste la vita. La distanza giusta dal Sole, l'acqua liquida e un'atmosfera che ci protegge dalle radiazioni rendono possibile tutto questo.
+
+La Luna | E' l'unico satellite naturale della Terra e le gira attorno in circa 27 giorni. La sua gravita' muove le maree, e le sue fasi dipendono da quanta parte illuminata riusciamo a vedere da qui. E' l'unico altro mondo su cui sia mai sceso un essere umano.
+
+Marte | E' chiamato il pianeta rosso per la ruggine che colora il suo suolo. Ha le stagioni, calotte di ghiaccio ai poli e il vulcano piu' alto del Sistema Solare, il Monte Olimpo: per questo e' il pianeta piu' visitato dalle nostre sonde.
+
+
+# --- I pianeti gassosi ---
+
+Pianeti gassosi | Sono i quattro giganti esterni: Giove, Saturno, Urano e Nettuno. Non hanno una superficie solida su cui posarsi, sono enormi, molto freddi, hanno tanti satelliti e tutti possiedono degli anelli, anche se solo quelli di Saturno si vedono bene.
+
+Giove | E' il pianeta piu' grande: da solo pesa piu' del doppio di tutti gli altri messi insieme. E' fatto soprattutto di idrogeno ed elio e ha decine di lune, tra cui le quattro che Galileo scopri' nel 1610 con il suo cannocchiale.
+
+La Grande Macchia Rossa | E' una tempesta gigantesca nell'atmosfera di Giove, cosi' larga che ci starebbe dentro la Terra intera. Gli astronomi la osservano da piu' di trecento anni, anche se negli ultimi decenni si sta rimpicciolendo.
+
+Saturno | E' il secondo pianeta per grandezza ed e' famoso per i suoi anelli, i piu' spettacolari del Sistema Solare. E' talmente leggero rispetto alla sua mole che, se ci fosse un oceano abbastanza grande, galleggerebbe.
+
+Gli anelli | Non sono dischi solidi ma miliardi di pezzi di ghiaccio e roccia, dal granello al masso, che girano attorno a Saturno ciascuno per conto proprio. Sono larghissimi ma sottili: poche decine di metri di spessore.
+
+Urano | E' un gigante ghiacciato di colore verde-azzurro, dovuto al metano presente nella sua atmosfera. La sua stranezza e' che ruota coricato su un fianco, probabilmente dopo uno scontro con un corpo enorme agli inizi della sua storia.
+
+Nettuno | E' il pianeta piu' lontano dal Sole e impiega 165 anni terrestri per compiere un solo giro. E' il regno dei venti piu' veloci del Sistema Solare, che superano i 2000 chilometri orari.
+
+
+# --- I corpi minori ---
+
+Corpi minori | Sono tutti i corpi del Sistema Solare che non sono ne' il Sole ne' pianeti: asteroidi, comete, meteoroidi e pianeti nani come Plutone. Sono i pezzi avanzati dalla formazione del sistema e per questo raccontano com'era agli inizi.
+
+
+Asteroidi | Sono corpi rocciosi, da pochi metri a centinaia di chilometri, rimasti dalla nascita del Sistema Solare. Non sono abbastanza grandi da diventare sferici per la propria gravita', percio' hanno spesso forme irregolari.
+
+Fascia principale | E' la zona fra Marte e Giove dove si trova la maggior parte degli asteroidi. Nonostante i film, e' quasi vuota: gli asteroidi sono lontanissimi l'uno dall'altro e una sonda ci passa in mezzo senza rischi.
+
+Comete | Sono palle di ghiaccio, polvere e roccia che arrivano dalle regioni piu' fredde e lontane. Avvicinandosi al Sole il ghiaccio evapora e forma la chioma e la lunga coda, che punta sempre in direzione opposta al Sole.
+
+Meteore | Sono le scie luminose che vediamo in cielo quando un frammento di roccia entra nell'atmosfera e brucia per l'attrito: le chiamiamo stelle cadenti. Se un pezzo sopravvive e tocca terra prende il nome di meteorite.
+
+
+# --- L'esplorazione spaziale ---
+
+Esplorazione spaziale | E' il modo in cui studiamo da vicino il Sistema Solare: prima con i telescopi da terra, poi con sonde automatiche e con i voli umani. E' cominciata nel 1957 con il primo satellite artificiale, lo Sputnik.
+
+Sonde e telescopi | Le sonde sono veicoli senza equipaggio che arrivano fin dove noi non possiamo andare, come Voyager, Cassini o i rover su Marte. I telescopi spaziali, come Hubble e Webb, osservano invece da lontano restando fuori dall'atmosfera che disturba le immagini.
+
+Missioni con astronauti | Sono i viaggi con persone a bordo: dai primi voli attorno alla Terra alle missioni Apollo, che fra il 1969 e il 1972 portarono dodici persone sulla Luna. Oggi gli astronauti vivono e fanno esperimenti sulla Stazione Spaziale Internazionale.

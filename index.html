@@ -19,7 +19,8 @@
     </div>
     <p class="aiuto">
       Trascina lo sfondo per spostarti, usa la rotella (o due dita) per ingrandire.
-      Clic su un nodo per metterlo al centro. I contenuti si cambiano nel file <code>mappa.txt</code>.
+      Clic su un nodo per metterlo al centro, doppio clic per aprirne la scheda.
+      I contenuti si cambiano nei file <code>mappa.txt</code> e <code>schede.txt</code>.
     </p>
   </header>
 
@@ -27,6 +28,13 @@
   <div id="avvisi" class="avvisi" hidden></div>
 
   <canvas id="tela"></canvas>
+
+  <!-- Scheda di approfondimento: si apre con un doppio clic su un nodo -->
+  <aside id="scheda" class="scheda" hidden aria-live="polite">
+    <button id="chiudi-scheda" class="chiudi" aria-label="Chiudi la scheda">&times;</button>
+    <h2 id="scheda-titolo"></h2>
+    <p id="scheda-testo"></p>
+  </aside>
 
   <script src="js/mappa.js"></script>
 </body>

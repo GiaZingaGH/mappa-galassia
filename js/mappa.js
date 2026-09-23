@@ -134,6 +134,68 @@ function creaNodo(id, testo, livello, padre, numeroRiga) {
 
 
 /* ---------------------------------------------------------------
+   2-bis. Lettura di schede.txt
+      Ogni riga e' fatta cosi':  nome del nodo | descrizione
+      Le righe con # sono commenti. Le righe scritte male vengono
+      saltate e segnalate, senza fermare il resto.
+   --------------------------------------------------------------- */
+const schede = new Map();     // nome del nodo semplificato -> descrizione
+
+function analizzaSchede(testo) {
+  const avvisi = [];
+
+  testo.split(/\r?\n/).forEach(function (riga, indice) {
+    const numeroRiga = indice + 1;
+    const pulita = riga.trim();
+
+    if (pulita === '' || pulita.charAt(0) === '#') return;
+
+    const barra = pulita.indexOf('|');
+    if (barra === -1) {
+      avvisi.push('schede.txt, riga ' + numeroRiga + ' ("' + pulita + '"): manca la ' +
+                  'barra verticale | fra il nome del nodo e la descrizione. ' +
+                  'Questa riga non viene usata.');
+      return;
+    }
+
+    const nome = pulita.slice(0, barra).trim();
+    const descrizione = pulita.slice(barra + 1).trim();
+
+    if (nome === '' || descrizione === '') {
+      avvisi.push('schede.txt, riga ' + numeroRiga + ': manca il nome del nodo oppure ' +
+                  'la descrizione. Serve il formato: nome del nodo | descrizione.');
+      return;
+    }
+
+    const chiave = semplifica(nome);
+    if (schede.has(chiave)) {
+      avvisi.push('schede.txt, riga ' + numeroRiga + ': c\'e\' gia\' una scheda per "' +
+                  nome + '". Tengo buona quest\'ultima.');
+    }
+    schede.set(chiave, descrizione);
+  });
+
+  return avvisi;
+}
+
+// Schede il cui nome non corrisponde a nessun nodo: di solito e' un refuso.
+function controllaNomiDelleSchede() {
+  const avvisi = [];
+  const nomiDeiNodi = new Set(nodi.map(function (nodo) { return semplifica(nodo.testo); }));
+
+  schede.forEach(function (descrizione, chiave) {
+    if (!nomiDeiNodi.has(chiave)) {
+      avvisi.push('schede.txt: la scheda che comincia con "' + chiave + '" non trova ' +
+                  'nessun nodo con quel nome in mappa.txt. Controlla che il nome sia ' +
+                  'scritto uguale.');
+    }
+  });
+
+  return avvisi;
+}
+
+
+/* ---------------------------------------------------------------
    3. Disegno: caratteri, misure e colore del testo
    --------------------------------------------------------------- */
 const tela = document.getElementById('tela');
@@ -379,8 +441,22 @@ function aggiornaInquadratura() {
 
     const margine = 60;
     const bordoAlto = 90;   // spazio per il titolo e la ricerca in alto
+
+    // Quando la scheda e' aperta occupa un pezzo di schermo (di lato sul
+    // computer, in basso sul telefono): la mappa si inquadra in cio' che resta.
+    let occupatoDestra = 0, occupatoSotto = 0;
+    if (!riquadroScheda.hidden) {
+      const ingombro = riquadroScheda.getBoundingClientRect();
+      if (ingombro.left > 0) occupatoDestra = ingombro.width;
+      else occupatoSotto = ingombro.height;
+    }
+
+    // La misura della mappa si calcola sullo schermo intero: se la scheda e'
+    // aperta non rimpiccioliamo tutto (diventerebbe illeggibile), spostiamo
+    // soltanto la mappa nello spazio che resta libero.
     const larghezzaUtile = Math.max(larghezzaVista - margine * 2, 50);
     const altezzaUtile = Math.max(altezzaVista - margine - bordoAlto, 50);
+    const altezzaLibera = Math.max(altezzaVista - occupatoSotto - margine - bordoAlto, 50);
 
     scalaObiettivo = Math.max(SCALA_MINIMA_AUTOMATICA,
       Math.min(1, larghezzaUtile / (maxX - minX), altezzaUtile / (maxY - minY)));
@@ -390,8 +466,8 @@ function aggiornaInquadratura() {
     const centroX = nodoScelto ? nodoScelto.x : (minX + maxX) / 2;
     const centroY = nodoScelto ? nodoScelto.y : (minY + maxY) / 2;
 
-    spostaXObiettivo = larghezzaVista / 2 - centroX * scalaObiettivo;
-    spostaYObiettivo = bordoAlto + altezzaUtile / 2 - centroY * scalaObiettivo;
+    spostaXObiettivo = (larghezzaVista - occupatoDestra) / 2 - centroX * scalaObiettivo;
+    spostaYObiettivo = bordoAlto + altezzaLibera / 2 - centroY * scalaObiettivo;
   }
 
   // Avvicinamento morbido, cosi' l'inquadratura non salta.
@@ -596,6 +672,9 @@ let spostamentoSfondo = false;    // stiamo trascinando lo sfondo
 let ultimoX = 0, ultimoY = 0;
 let distanzaPizzico = 0;
 let quantoSiEMosso = 0;           // per capire se e' stato un clic o un trascinamento
+let nodoDelTocco = null;          // ultimo nodo toccato, per riconoscere il doppio clic
+let tempoDelTocco = 0;
+const ATTESA_DOPPIO_CLIC = 400;   // millisecondi entro cui due clic contano come doppio
 
 tela.addEventListener('pointerdown', function (evento) {
   tela.setPointerCapture(evento.pointerId);
@@ -687,14 +766,28 @@ function terminaTocco(evento) {
       const nodo = nodoTrascinato;
       nodoTrascinato.fermato = false;
       nodoTrascinato = null;
-      scegliNodo(nodo === nodoScelto ? null : nodo);   // un altro clic lo libera
+
+      // Due clic ravvicinati sullo stesso nodo aprono la sua scheda.
+      const adesso = Date.now();
+      const doppio = (nodo === nodoDelTocco) && (adesso - tempoDelTocco < ATTESA_DOPPIO_CLIC);
+      nodoDelTocco = nodo;
+      tempoDelTocco = adesso;
+
+      if (doppio) {
+        scegliNodo(nodo);        // resta al centro e si apre la scheda
+        apriScheda(nodo);
+      } else {
+        chiudiScheda();
+        scegliNodo(nodo === nodoScelto ? null : nodo);   // un altro clic lo libera
+      }
     } else {
       nodoTrascinato.fermato = false;
       nodoTrascinato = null;
       riavviaFisica();
     }
-  } else if (spostamentoSfondo && quantoSiEMosso < 6 && nodoScelto) {
-    scegliNodo(null);          // clic sullo sfondo: si torna alla mappa intera
+  } else if (spostamentoSfondo && quantoSiEMosso < 6) {
+    chiudiScheda();            // clic sullo sfondo: si torna alla mappa intera
+    if (nodoScelto) scegliNodo(null);
   }
 
   spostamentoSfondo = false;
@@ -730,7 +823,9 @@ window.addEventListener('resize', ridimensiona);
 window.addEventListener('keydown', function (evento) {
   if (evento.key !== 'Escape') return;
   const casella = document.getElementById('cerca');
-  if (casella.value !== '') {
+  if (!riquadroScheda.hidden) {
+    chiudiScheda();
+  } else if (casella.value !== '') {
     casella.value = '';
     aggiornaRicerca('');
   } else if (nodoScelto) {
@@ -780,6 +875,51 @@ document.getElementById('cerca').addEventListener('input', function (evento) {
 
 
 /* ---------------------------------------------------------------
+   10-bis. La scheda laterale (doppio clic su un nodo)
+   --------------------------------------------------------------- */
+const riquadroScheda = document.getElementById('scheda');
+const titoloScheda = document.getElementById('scheda-titolo');
+const testoScheda = document.getElementById('scheda-testo');
+
+function apriScheda(nodo) {
+  titoloScheda.textContent = nodo.testo;
+  titoloScheda.style.borderLeftColor = nodo.colore;   // la riga a sinistra prende il colore del ramo
+
+  const descrizione = schede.get(semplifica(nodo.testo));
+
+  if (descrizione) {
+    testoScheda.classList.remove('mancante');
+    testoScheda.textContent = descrizione;
+  } else {
+    // Nessuna scheda per questo nodo: invece di un riquadro vuoto,
+    // spieghiamo come aggiungerla.
+    testoScheda.classList.add('mancante');
+    testoScheda.textContent = '';
+    testoScheda.appendChild(document.createTextNode(
+      'Questo nodo non ha ancora una scheda. Per scriverla, apri il file schede.txt ' +
+      'e aggiungi una riga cosi\':'));
+    testoScheda.appendChild(document.createElement('br'));
+    testoScheda.appendChild(document.createElement('br'));
+    const esempio = document.createElement('code');
+    esempio.textContent = nodo.testo + ' | qui la descrizione';
+    testoScheda.appendChild(esempio);
+  }
+
+  riquadroScheda.hidden = false;
+  inquadraturaAutomatica = true;   // la mappa si sposta nello spazio rimasto
+  riavviaMovimento();
+}
+
+function chiudiScheda() {
+  if (riquadroScheda.hidden) return;
+  riquadroScheda.hidden = true;
+  riavviaMovimento();            // la mappa si riprende lo spazio libero
+}
+
+document.getElementById('chiudi-scheda').addEventListener('click', chiudiScheda);
+
+
+/* ---------------------------------------------------------------
    11. Avvisi a schermo
    --------------------------------------------------------------- */
 function mostraAvvisi(messaggi) {
@@ -792,7 +932,7 @@ function mostraAvvisi(messaggi) {
   riquadro.innerHTML = '';
 
   const intestazione = document.createElement('p');
-  intestazione.innerHTML = '<strong>Da controllare in mappa.txt:</strong>';
+  intestazione.innerHTML = '<strong>Da controllare nei file dei contenuti:</strong>';
   riquadro.appendChild(intestazione);
 
   messaggi.forEach(function (messaggio) {
@@ -806,12 +946,19 @@ function mostraAvvisi(messaggi) {
 /* ---------------------------------------------------------------
    12. Avvio: leggiamo mappa.txt e partiamo
    --------------------------------------------------------------- */
-fetch('mappa.txt', { cache: 'no-store' })
-  .then(function (risposta) {
+// Si leggono i due file insieme: mappa.txt e' indispensabile, schede.txt no
+// (se manca, la mappa funziona lo stesso e le schede semplicemente non ci sono).
+Promise.all([
+  fetch('mappa.txt', { cache: 'no-store' }).then(function (risposta) {
     if (!risposta.ok) throw new Error('mappa.txt non trovato (errore ' + risposta.status + ')');
     return risposta.text();
-  })
-  .then(function (testo) {
+  }),
+  fetch('schede.txt', { cache: 'no-store' })
+    .then(function (risposta) { return risposta.ok ? risposta.text() : ''; })
+    .catch(function () { return ''; })
+])
+  .then(function (contenuti) {
+    const testo = contenuti[0];
     const risultato = analizzaMappa(testo);
     nodi = risultato.nodi;
 
@@ -829,7 +976,9 @@ fetch('mappa.txt', { cache: 'no-store' })
     document.getElementById('titolo').textContent = nodi[0].testo;
     document.title = nodi[0].testo + ' — mappa';
 
-    mostraAvvisi(risultato.avvisi);
+    const avvisiSchede = analizzaSchede(contenuti[1]);
+
+    mostraAvvisi(risultato.avvisi.concat(avvisiSchede, controllaNomiDelleSchede()));
     ridimensiona();
     disponiAllInizio();
 

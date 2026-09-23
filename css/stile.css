@@ -117,3 +117,93 @@ html, body {
 
 #tela.trascino { cursor: grabbing; }
 #tela.sopra-nodo { cursor: pointer; }
+
+/* ------------------------------------------------------------------
+   La scheda laterale: si apre con un doppio clic su un nodo
+   ------------------------------------------------------------------ */
+.scheda {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 340px;
+  max-width: 88vw;
+  z-index: 4;
+  padding: 26px 26px 30px;
+  overflow-y: auto;
+  background: #161d33;
+  border-left: 1px solid rgba(255, 255, 255, 0.10);
+  box-shadow: -12px 0 30px rgba(0, 0, 0, 0.35);
+  animation: entra-da-destra 0.22s ease-out;
+}
+
+@keyframes entra-da-destra {
+  from { transform: translateX(28px); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+
+.scheda h2 {
+  margin: 0 0 14px;
+  padding-left: 12px;
+  font-size: 19px;
+  line-height: 1.3;
+  /* la riga colorata a sinistra prende il colore del ramo del nodo */
+  border-left: 4px solid #6aa0ff;
+}
+
+.scheda p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.62;
+  color: #c9d3e8;
+}
+
+.scheda p.mancante {
+  color: #93a0bd;
+  font-style: italic;
+}
+
+.scheda code {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-style: normal;
+}
+
+.chiudi {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  color: #e8ecf6;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.chiudi:hover { background: rgba(255, 255, 255, 0.16); }
+
+/* Sul telefono la scheda sale dal basso invece di stare di lato */
+@media (max-width: 700px) {
+  .scheda {
+    top: auto;
+    left: 0;
+    width: auto;
+    max-width: none;
+    max-height: 52vh;
+    border-left: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.10);
+    box-shadow: 0 -12px 30px rgba(0, 0, 0, 0.35);
+    animation: entra-dal-basso 0.22s ease-out;
+  }
+
+  @keyframes entra-dal-basso {
+    from { transform: translateY(28px); opacity: 0; }
+    to   { transform: translateY(0);    opacity: 1; }
+  }
+}
